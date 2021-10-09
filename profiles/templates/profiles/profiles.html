@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  
+
+
+
+<div id="search-box">
+    <div class="container search-box">
+        <form action="#" id="search-box_search_form_3"
+            class="search-box_search_form d-flex flex-lg-row flex-column align-items-center justify-content-between ">
+            <div class="d-flex flex-row align-items-center justify-content-start inline-block">
+                <span class="large material-icons search">search</span>
+                <input class="search-box_search_input" placeholder="Search Keyword" required="required" type="search">
+                <select class="dropdown_item_select search-box_search_input">
+                    <option>Category</option>
+                    <option>Category1</option>
+                    <option>Category2</option>
+                </select>
+                <span class="large material-icons search">place</span>
+                <input class="search-box_search_input " placeholder="Location" required="required" type="search">
+            </div>
+            <button type="submit" class="search-box_search_button">Search Jobs</button>
+        </form>
+    </div>
+</div>
+
+
+<section id="resent-job-post" class="background-color-white">
+    <div class="vertical-space-85"></div>
+    <div class="container text-center">
+        <h3 class="text-center">Profiles</h3>
+        <div class="vertical-space-30"></div>
+        <p class="max-width">Lorem ipsum tempus amet conubia adipiscing fermentum viverra gravida, mollis suspendisse
+            pretium dictumst inceptos mattis euismod
+        </p>
+        <div class="vertical-space-60"></div>
+        {% for profile in profiles_all %}
+          <div class="detail">
+            <div class="media display-inline text-align-center">
+                {% if profile.image%}
+                    <img src="{{profile.image.url}}" alt="John Doe" class="mr-3 " style="width: 120px; height: 120px;">
+                {% else %}
+                <img src="{% static 'images/profile.jpeg' %}" alt="John Doe" class="mr-3 " 
+                style="width: 120px; height: 120px;">
+                {% endif %}
+                
+                <div class="media-body text-left  text-align-center">
+                    <a href="{% url 'profiles:profile_detail' profile.slug %}"><h6>{{profile.user.username}}</h6></a>
+                    <span>Code: </span>
+                    <span class="text">{{profile.code}}</span>
+                    <br />
+                    <span >Phone: </span>
+                    <span class="text font-size">{{profile.phone}}</span>
+                    <div class="float-right margin-top text-align-center">
+                        <p class="date-time">Age: {{profile.age}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        
+
+       
+        
+        <div class="vertical-space-20"></div>
+        <div class="job-list">
+            <a href="#" class="Open-Jobs-Page margin-auto">Open Jobs Page<i
+                    class="large material-icons float-right">trending_flat</i></a>
+            <ul class="pagination justify-content-end margin-auto">
+                <li class="page-item"><a class="page-link pdding-none" href="javascript:void(0);"><i
+                            class=" material-icons keyboard_arrow_left_right">keyboard_arrow_left</i></a></li>
+                <li class="page-item"><a class="page-link active" href="javascript:void(0);">1</a></li>
+                <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+                <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
+                <li class="page-item"><a class="page-link" href="javascript:void(0);">4</a></li>
+                <li class="page-item">
+                    <a class="page-link pdding-none" href="javascript:void(0);"> <i
+                            class=" material-icons keyboard_arrow_left_right">keyboard_arrow_right</i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="vertical-space-60"></div>
+</section>
+
+
+
+
+{% endblock content %}

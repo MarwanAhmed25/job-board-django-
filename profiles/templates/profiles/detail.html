@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+
+
+<section id="intro">
+    <div class="carousel-item active">
+        <div class="carousel-background"><img src="{% static 'imags/slider/slider1.jpg' %}" alt=""></div>
+        <div class="carousel-container">
+            <div class="carousel-content">
+                <h2 class="font-color-white">Profile Result</h2>
+                <p class="font-color-white width-100"><a href="index.html" class="font-color-white">Home /</a><a
+                        href="Job_Category-2.html" class="font-color-white"> Profile </a>/ Details
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="job-Details">
+    <div class="container background-color-full-white job-Details">
+        <div class="Exclusive-Product">
+            <h2 style="font-weight: bold;">{{profile.user.username}}</h2>
+            {% if user.profile.slug == profile.slug %}
+              <a href="{% url 'profiles:profile_delete' profile.slug %}" class="Apply-Now">Delete</a>
+            <a href="{% url 'profiles:profile_update' profile.slug %}" class="Apply-Now">Edit</a>
+            {% endif %}
+            
+            <h4>Email:</h4>
+            <span style="font-size: 20px;">{{profile.user.email}}</span>
+            
+            <h4>Code:</h4>
+            <span style="font-size: 20px;">{{profile.code}}</span>
+            <h4>Phone:</h4>
+            <span style="font-size: 20px;">{{profile.phone}}</span>
+            <h4>Age:</h4>
+            <span style="font-size: 20px;">{{profile.age}}</span>
+        </div>
+        {% if profile.image%}
+                    <img src="{{profile.image.url}}" alt="John Doe" class="job-detail-img">
+                {% else %}
+                <img src="{% static 'images/profile.jpeg' %}" alt="John Doe" class="job-detail-img">
+                {% endif %}
+        <div class="Job-Description">
+            <h4>Description</h4>
+            <ul>
+                {{profile.description}}
+            </ul>
+            <br>
+            <br>
+            <h4>My Jobs</h4>
+            <div>
+                {% for job in jobs %}
+                <div class="detail" style="margin: 15px;">
+                  <div class="media display-inline text-align-center">
+                      {% if job.image %}
+                        <img src="{{job.image.url}}" alt="John Doe" class="mr-3 " 
+                      style="width: 120px; height: 120px;">
+                      {% else %}
+                      <img src="{% static 'images/job.jpeg' %}" alt="John Doe" class="mr-3 " 
+                      style="width: 120px; height: 120px;">
+                      {% endif %}
+                      
+            
+                      <div class="media-body text-left  text-align-center">
+                          <a href="{% url 'jobs:job_detail' job.slug %}"><h6>{{job.title}}</h6></a>
+                          <i class="large material-icons">account_balance</i>
+                          <span class="text">{{job.country}}</span>
+                          <br />
+                          <i class="large material-icons">place</i>
+                          <span class="text font-size">{{job.location}}</span>
+                          <div class="float-right margin-top text-align-center">
+                              <a href="#" class="part-full-time">{{job.job_type}}</a>
+                              <p class="date-time">Published at: {{job.pubished_at}}</p>
+                          </div>
+                      </div>
+            
+                  </div>
+              </div>
+              {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+</section>
+
+
+<section id="comment" class="background-color-full-white-light">
+    <div class="container">
+        <div class="max-width-80">
+            <h4>comment</h4>
+            <a href="#" class="Share">Share</a>
+            <div class="media border p-3">
+                <img src="imags/comment1.png" alt="John Doe" class="mr-3 rounded-circle imagess" style="width:60px;">
+                <div class="media-body">
+                    <h6>Rehmatun Nisal</h6>
+                    <p>Suspendisse augue pulvinar placerat himenaeos odio nec turpis augue sem maecenas, faucibus erat
+                        lacinia consectetur sapien suscipit vestibulum venenatis himenaeos.</p>
+                </div>
+            </div>
+            <div class="media border p-3 ">
+                <img src="imags/comment2.png" alt="John Doe" class="mr-3 rounded-circle imagess" style="width:60px;">
+                <div class="media-body">
+                    <h6>Rehmatun Nisal</h6>
+                    <p>Suspendisse augue pulvinar placerat himenaeos odio nec turpis augue sem maecenas, faucibus erat
+                        lacinia consectetur sapien suscipit vestibulum venenatis himenaeos.</p>
+                </div>
+            </div>
+            <div class="media border p-3 padding-none border-none">
+                <img src="imags/comment3.png" alt="John Doe" class="mr-3 rounded-circle imagess" style="width:60px;">
+                <div class="media-body">
+                    <form>
+                        <textarea placeholder="Type commeny" required></textarea>
+                        <button class="Post">Post</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+{% endblock content %}
