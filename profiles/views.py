@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import redirect, render
 from .forms import ProfileForm, UserForm
 from django.contrib import messages
@@ -10,8 +11,10 @@ import os
 
 def profiles_all(req):
     profiles_all = Profile.objects.all()
-
-    return render(req, 'profiles/profiles.html', {'profiles_all': profiles_all})
+    paginator = Paginator(profiles_all, 5)
+    page_number = req.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(req, 'profiles/profiles.html', {'page_obj': page_obj})
 
 
 def profile_update(req, slug):
@@ -19,6 +22,7 @@ def profile_update(req, slug):
     message = ''
     user = req.user
     profile = user.profile
+    
     form = ProfileForm(instance=profile)
     form2 = UserForm(instance=user)
     if req.method == 'POST':
@@ -45,7 +49,7 @@ def profile_update(req, slug):
                 if len(profile.phone) != 11 and profile.phone[0] != 0 and profile.phone[1] != 1:
                     message = 'age should be enter correct phone number!!'
                     return redirect('profiles:profile_update', profile.slug)
-
+            
             profile.save()
 
             auth_login(req, user)
@@ -60,6 +64,7 @@ def profile_update(req, slug):
 
 
 def profile_detail(req, slug):
+    print('..........')
 
     profile = Profile.objects.get(slug=slug)
     jobs = profile.job_set.all()

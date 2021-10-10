@@ -21,6 +21,12 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
+    def save(self, *args, **kwargs):
+       
+        if not self.slug:
+            self.slug = slugify(self.user.username)
+        
+        super(Profile, self).save(*args, **kwargs)
 
 def save_profile(sender, instance, created, **kwargs):
     if created:
