@@ -10,8 +10,9 @@ import os
 
 
 def profiles_all(req):
+    print(req)
     profiles_all = Profile.objects.all()
-    paginator = Paginator(profiles_all, 5)
+    paginator = Paginator(profiles_all, 1)
     page_number = req.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(req, 'profiles/profiles.html', {'page_obj': page_obj})

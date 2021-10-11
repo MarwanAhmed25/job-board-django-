@@ -11,7 +11,7 @@ import os
 
 def jobs_all(req):
     jobs = Job.objects.all()
-    paginator = Paginator(jobs, 5)
+    paginator = Paginator(jobs, 1)
     page_number = req.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(req, 'jobs/jobs.html', {'page_obj': page_obj})
